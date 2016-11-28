@@ -18,4 +18,11 @@ define GPSDATE_INSTALL_TARGET_CMDS
 	$(INSTALL) "$(@D)/gpsdate" "$(TARGET_DIR)/usr/sbin"
 endef
 
+define GPSDATE_INSTALL_INIT_SYSTEMD
+	$(INSTALL) -d "$(TARGET_DIR)/usr/lib/systemd/system"
+	$(INSTALL) -d "$(TARGET_DIR)/usr/lib/systemd/system/multi-user.target.wants"
+	$(INSTALL) "$(@D)/gpsdate.service" "$(TARGET_DIR)/usr/lib/systemd/system"
+	ln -svn "../gpsdate.service" "$(TARGET_DIR)/usr/lib/systemd/system/multi-user.target.wants/"
+endef
+
 $(eval $(generic-package))
