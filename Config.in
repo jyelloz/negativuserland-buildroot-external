@@ -1,1 +1,2 @@
 source "$BR2_EXTERNAL_NEGATIVUSERLAND_PATH/package/gpsdate/Config.in"
+source "$BR2_EXTERNAL_NEGATIVUSERLAND_PATH/package/negativuserland/Config.in"
