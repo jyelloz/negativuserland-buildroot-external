@@ -25,4 +25,10 @@ define GPSDATE_INSTALL_INIT_SYSTEMD
 	ln -svn "../gpsdate.service" "$(TARGET_DIR)/usr/lib/systemd/system/multi-user.target.wants/"
 endef
 
+define GPSDATE_INSTALL_INIT_SYSV
+	$(INSTALL) -d "$(TARGET_DIR)/etc/init.d"
+	$(INSTALL) -d "$(TARGET_DIR)/etc/default"
+	$(INSTALL) "$(@D)/gpsdate.init" "$(TARGET_DIR)/etc/init.d/S51gpsdate"
+endef
+
 $(eval $(generic-package))
