@@ -1,0 +1,5 @@
+config BR2_PACKAGE_GPSDATE
+	bool "gpsdate"
+	select BR2_PACKAGE_GPSD
+	help
+		Sets system clock using date found by gpsd.
