@@ -1,0 +1,111 @@
+/*
+ * Copyright (C) 2012 Texas Instruments Incorporated - http://www.ti.com/
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License version 2 as
+ * published by the Free Software Foundation.
+ */
+/dts-v1/;
+
+#include "am33xx.dtsi"
+#include "am335x-bone-common.dtsi"
+
+/ {
+	model = "TI AM335x BeagleBone Black";
+	compatible = "ti,am335x-bone-black", "ti,am335x-bone", "ti,am33xx";
+};
+
+&ldo3_reg {
+	regulator-min-microvolt = <1800000>;
+	regulator-max-microvolt = <1800000>;
+	regulator-always-on;
+};
+
+&mmc1 {
+	vmmc-supply = <&vmmcsd_fixed>;
+};
+
+&mmc2 {
+	vmmc-supply = <&vmmcsd_fixed>;
+	pinctrl-names = "default";
+	pinctrl-0 = <&emmc_pins>;
+	bus-width = <8>;
+	status = "okay";
+};
+
+&cpu0_opp_table {
+	/*
+	 * All PG 2.0 silicon may not support 1GHz but some of the early
+	 * BeagleBone Blacks have PG 2.0 silicon which is guaranteed
+	 * to support 1GHz OPP so enable it for PG 2.0 on this board.
+	 */
+	oppnitro@1000000000 {
+		opp-supported-hw = <0x06 0x0100>;
+	};
+};
+
+&rtc {
+	system-power-controller;
+};
+
+/* {{{ McASP 4-CH Output */
+
+&am33xx_pinmux {
+	mcasp0_4ch_pins_default: mcasp0_4ch_pins_default {
+		pinctrl-single,pins = <
+			AM33XX_IOPAD(0x8c0, PIN_OUTPUT | MUX_MODE3 ) /* (U1) lcd_data8.mcasp0_aclkx */
+			AM33XX_IOPAD(0x8c4, PIN_OUTPUT | MUX_MODE3 ) /* (U2) lcd_data9.mcasp0_fsx */
+			AM33XX_IOPAD(0x8c8, PIN_OUTPUT | MUX_MODE3 ) /* (U3) lcd_data10.mcasp0_axr0 */
+			AM33XX_IOPAD(0x8d8, PIN_OUTPUT | MUX_MODE3 ) /* (V4) lcd_data14.mcasp0_axr1 */
+		>;
+	};
+};
+
+&mcasp0 {
+    status = "okay";
+	pinctrl-names = "default";
+	pinctrl-0 = <&mcasp0_4ch_pins_default>;
+	op-mode = <0>;
+	tdm-slots = <2>;
+	serial-dir = <1 1 0 0>;
+	tx-num-evt = <32>;
+	rx-num-evt = <32>;
+};
+
+/* }}} */
+
+/* {{{ GPS UART + GPIO PPS */
+
+&am33xx_pinmux {
+	uart1_gps_pins_default: uart1_gps_pins_default {
+		pinctrl-single,pins = <
+			AM33XX_IOPAD(0x980, PIN_INPUT_PULLUP | MUX_MODE0) /* (D16) uart1_rxd.uart1_rxd */
+			AM33XX_IOPAD(0x984, PIN_OUTPUT_PULLDOWN | MUX_MODE0) /* (D15) uart1_txd.uart1_txd */
+		>;
+	};
+	gpio1_gps_pps_pins_default: gpio1_gps_pps_pins_default {
+		pinctrl-single,pins = <
+			AM33XX_IOPAD(0x878, PIN_INPUT | MUX_MODE7) /* (U18) gpmc_be1n.gpio1[28] */
+		>;
+	};
+};
+
+&uart1 {
+	pinctrl-names = "default";
+	pinctrl-0 = <&uart1_gps_pins_default>;
+	status = "okay";
+};
+
+/ {
+	pps {
+		compatible = "pps-gpio";
+		status = "okay";
+		pinctrl-names = "default";
+		pinctrl-0 = <&gpio1_gps_pps_pins_default>;
+		gpios = <&gpio1 28 0>;
+	};
+};
+
+/* }}} */
+
+/* vim: foldmethod=marker */
