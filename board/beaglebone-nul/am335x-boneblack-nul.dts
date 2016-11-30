@@ -74,12 +74,12 @@
 
 / {
 
-	pcm5012_f: pcm5012@0 {
+	pcm5102_f: pcm5102@0 {
 		compatible = "ti,pcm5102", "ti,pcm5102a";
 		status = "okay";
 	};
 
-	pcm5012_r: pcm5012@1 {
+	pcm5102_r: pcm5102@1 {
 		compatible = "ti,pcm5102", "ti,pcm5102a";
 		status = "okay";
 	};
@@ -94,12 +94,12 @@
 			frame-master = <&mcasp0f_cpu>;
 			bitclock-master = <&mcasp0f_cpu>;
 			mclk-fs = <16>;
-			&mcasp0f_cpu: cpu {
+			mcasp0f_cpu: cpu {
 				sound-dai = <&mcasp0 0>;
 				system-clock-frequency = <24576000>;
 			};
 			codec {
-				sound-dai <&pcm5102_f 0>;
+				sound-dai = <&pcm5102_f 0>;
 			};
 		};
 
@@ -108,12 +108,12 @@
 			frame-master = <&mcasp0r_cpu>;
 			bitclock-master = <&mcasp0r_cpu>;
 			mclk-fs = <16>;
-			&mcasp0r_cpu: cpu {
+			mcasp0r_cpu: cpu {
 				sound-dai = <&mcasp0 1>;
 				system-clock-frequency = <24576000>;
 			};
 			codec {
-				sound-dai <&pcm5102_r 0>;
+				sound-dai = <&pcm5102_r 0>;
 			};
 		};
 
