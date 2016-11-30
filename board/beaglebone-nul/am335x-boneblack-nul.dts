@@ -84,22 +84,37 @@
 		status = "okay";
 	};
 
-	sound@0 {
-		compatible = "simple-audio-card";
-		simple-audio-card,name = "McASP PCM5102 Front";
-		simple-audio-card,format = "i2s";
-		simple-audio-card,bitclock-master = <&mcasp0_f_master>;
-		simple-audio-card,frame-master = <&mcasp0_f_master>;
-		simple-audio-card,mclk-fs = <16>;
-		simple-audio-card,widgets = "Line", "Line Out";
+	sound {
 
-		mcasp0_f_master: simple-audio-card,cpu {
-			sound-dai = <&mcasp0>;
-			system-clock-frequency = <24576000>;
+		compatible = "simple-audio-card";
+		simple-audio-card,name = "McASP0 2xPCM5102";
+
+		simple-audio-card,dai-link@0 {
+			format = "i2s";
+			frame-master = <&mcasp0f_cpu>;
+			bitclock-master = <&mcasp0f_cpu>;
+			mclk-fs = <16>;
+			&mcasp0f_cpu: cpu {
+				sound-dai = <&mcasp0 0>;
+				system-clock-frequency = <24576000>;
+			};
+			codec {
+				sound-dai <&pcm5102_f 0>;
+			};
 		};
 
-		pcm5102_f_slave: simple-audio-card,codec {
-			sound-dai = <&pcm5102_f>;
+		simple-audio-card,dai-link@1 {
+			format = "i2s";
+			frame-master = <&mcasp0r_cpu>;
+			bitclock-master = <&mcasp0r_cpu>;
+			mclk-fs = <16>;
+			&mcasp0r_cpu: cpu {
+				sound-dai = <&mcasp0 1>;
+				system-clock-frequency = <24576000>;
+			};
+			codec {
+				sound-dai <&pcm5102_r 0>;
+			};
 		};
 
 	};
