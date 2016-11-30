@@ -72,6 +72,40 @@
 	rx-num-evt = <32>;
 };
 
+/ {
+
+	pcm5012_f: pcm5012@0 {
+		compatible = "ti,pcm5102", "ti,pcm5102a";
+		status = "okay";
+	};
+
+	pcm5012_r: pcm5012@1 {
+		compatible = "ti,pcm5102", "ti,pcm5102a";
+		status = "okay";
+	};
+
+	sound@0 {
+		compatible = "simple-audio-card";
+		simple-audio-card,name = "McASP PCM5102 Front";
+		simple-audio-card,format = "i2s";
+		simple-audio-card,bitclock-master = <&mcasp0_f_master>;
+		simple-audio-card,frame-master = <&mcasp0_f_master>;
+		simple-audio-card,mclk-fs = <16>;
+		simple-audio-card,widgets = "Line", "Line Out";
+
+		mcasp0_f_master: simple-audio-card,cpu {
+			sound-dai = <&mcasp0>;
+			system-clock-frequency = <24576000>;
+		};
+
+		pcm5102_f_slave: simple-audio-card,codec {
+			sound-dai = <&pcm5102_f>;
+		};
+
+	};
+
+};
+
 /* }}} */
 
 /* {{{ GPS UART + GPIO PPS */
