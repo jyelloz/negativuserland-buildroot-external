@@ -62,6 +62,7 @@
 };
 
 &mcasp0 {
+	#sound-dai-cells = <0>;
 	status = "okay";
 	pinctrl-names = "default";
 	pinctrl-0 = <&mcasp0_4ch_pins_default>;
@@ -74,49 +75,26 @@
 
 / {
 
-	pcm5102_f: pcm5102@0 {
-		compatible = "ti,pcm5102", "ti,pcm5102a";
-		status = "okay";
-	};
-
-	pcm5102_r: pcm5102@1 {
-		compatible = "ti,pcm5102", "ti,pcm5102a";
+	pcm5102_dual: pcm5102_dual {
+		#sound-dai-cells = <0>;
+		compatible = "ti,pcm5102a-dual";
 		status = "okay";
 	};
 
 	sound {
-
 		compatible = "simple-audio-card";
-		simple-audio-card,name = "McASP0 2xPCM5102";
-
-		simple-audio-card,dai-link@0 {
-			format = "i2s";
-			frame-master = <&mcasp0f_cpu>;
-			bitclock-master = <&mcasp0f_cpu>;
-			mclk-fs = <16>;
-			mcasp0f_cpu: cpu {
-				sound-dai = <&mcasp0 0>;
-				system-clock-frequency = <24576000>;
-			};
-			codec {
-				sound-dai = <&pcm5102_f 0>;
-			};
+		simple-audio-card,name = "McASP0";
+		simple-audio-card,format = "i2s";
+		simple-audio-card,frame-master = <&mcasp0_cpu>;
+		simple-audio-card,bitclock-master = <&mcasp0_cpu>;
+		simple-audio-card,mclk-fs = <16>;
+		mcasp0_cpu: cpu {
+			sound-dai = <&mcasp0>;
+			system-clock-frequency = <24576000>;
 		};
-
-		simple-audio-card,dai-link@1 {
-			format = "i2s";
-			frame-master = <&mcasp0r_cpu>;
-			bitclock-master = <&mcasp0r_cpu>;
-			mclk-fs = <16>;
-			mcasp0r_cpu: cpu {
-				sound-dai = <&mcasp0 1>;
-				system-clock-frequency = <24576000>;
-			};
-			codec {
-				sound-dai = <&pcm5102_r 0>;
-			};
+		codec {
+			sound-dai = <&pcm5102_dual>;
 		};
-
 	};
 
 };
