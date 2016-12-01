@@ -59,13 +59,22 @@
 			AM33XX_IOPAD(0x8d8, PIN_OUTPUT_PULLDOWN | MUX_MODE3 ) /* (V4) lcd_data14.mcasp0_axr1 */
 		>;
 	};
+	mcasp0_4ch_pins_sleep: mcasp0_4ch_pins_sleep {
+		pinctrl-single,pins = <
+			AM33XX_IOPAD(0x8c0, PIN_INPUT_PULLDOWN | MUX_MODE7 )
+			AM33XX_IOPAD(0x8c4, PIN_INPUT_PULLDOWN | MUX_MODE7 )
+			AM33XX_IOPAD(0x8c8, PIN_INPUT_PULLDOWN | MUX_MODE7 )
+			AM33XX_IOPAD(0x8d8, PIN_INPUT_PULLDOWN | MUX_MODE7 )
+		>;
+	};
 };
 
 &mcasp0 {
 	#sound-dai-cells = <0>;
 	status = "okay";
-	pinctrl-names = "default";
+	pinctrl-names = "default", "sleep";
 	pinctrl-0 = <&mcasp0_4ch_pins_default>;
+	pinctrl-1 = <&mcasp0_4ch_pins_sleep>;
 	op-mode = <0>;
 	tdm-slots = <2>;
 	serial-dir = <1 1 0 0>;
