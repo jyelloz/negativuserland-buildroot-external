@@ -53,10 +53,10 @@
 &am33xx_pinmux {
 	mcasp0_4ch_pins_default: mcasp0_4ch_pins_default {
 		pinctrl-single,pins = <
-			AM33XX_IOPAD(0x8c0, PIN_OUTPUT | MUX_MODE3 ) /* (U1) lcd_data8.mcasp0_aclkx */
-			AM33XX_IOPAD(0x8c4, PIN_OUTPUT | MUX_MODE3 ) /* (U2) lcd_data9.mcasp0_fsx */
-			AM33XX_IOPAD(0x8c8, PIN_OUTPUT | MUX_MODE3 ) /* (U3) lcd_data10.mcasp0_axr0 */
-			AM33XX_IOPAD(0x8d8, PIN_OUTPUT | MUX_MODE3 ) /* (V4) lcd_data14.mcasp0_axr1 */
+			AM33XX_IOPAD(0x8c0, PIN_OUTPUT_PULLDOWN | MUX_MODE3 ) /* (U1) lcd_data8.mcasp0_aclkx */
+			AM33XX_IOPAD(0x8c4, PIN_OUTPUT_PULLDOWN | MUX_MODE3 ) /* (U2) lcd_data9.mcasp0_fsx */
+			AM33XX_IOPAD(0x8c8, PIN_OUTPUT_PULLDOWN | MUX_MODE3 ) /* (U3) lcd_data10.mcasp0_axr0 */
+			AM33XX_IOPAD(0x8d8, PIN_OUTPUT_PULLDOWN | MUX_MODE3 ) /* (V4) lcd_data14.mcasp0_axr1 */
 		>;
 	};
 };
