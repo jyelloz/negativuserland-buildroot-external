@@ -62,7 +62,7 @@
 };
 
 &mcasp0 {
-    status = "okay";
+	status = "okay";
 	pinctrl-names = "default";
 	pinctrl-0 = <&mcasp0_4ch_pins_default>;
 	op-mode = <0>;
