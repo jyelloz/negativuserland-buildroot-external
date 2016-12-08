@@ -69,6 +69,17 @@
 	};
 };
 
+#if 0
+	XXX: D13 and D14 are on P9#41, it must be disabled.
+	gpio1[27] must be in GPIO mode to expose 24.576 MHz clock on P9#25
+#endif
+&clkout2_pin {
+	pinctrl-single,pins = <
+		AM33XX_IOPAD(0x9b4, PIN_INPUT_PULLDOWN | MUX_MODE7 ) /* (D14) xdma_event_intr1.gpio0[20] */
+		AM33XX_IOPAD(0x86c, PIN_OUTPUT | MUX_MODE7 ) /* (V17) gpmc_a11.gpio1[27] */
+	>;
+};
+
 &mcasp0 {
 	#sound-dai-cells = <0>;
 	status = "okay";
