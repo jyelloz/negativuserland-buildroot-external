@@ -97,26 +97,36 @@
 
 / {
 
-	pcm5102_dual: pcm5102_dual {
+	audio_codec_f: pcm5102a@0 {
 		#sound-dai-cells = <0>;
-		compatible = "ti,pcm5102a-dual";
+		compatible = "ti,pcm5102a";
 		status = "okay";
 	};
 
-	sound {
-		compatible = "simple-audio-card";
-		simple-audio-card,name = "McASP0";
-		simple-audio-card,format = "i2s";
-		simple-audio-card,frame-master = <&mcasp0_cpu>;
-		simple-audio-card,bitclock-master = <&mcasp0_cpu>;
-		simple-audio-card,mclk-fs = <16>;
-		mcasp0_cpu: cpu {
-			sound-dai = <&mcasp0>;
-			system-clock-frequency = <24576000>;
-		};
-		codec {
-			sound-dai = <&pcm5102_dual>;
-		};
+	sound@0 {
+		compatible = "ti,nul-bbb-pcm5102a-f";
+		ti,model = "TI PCM5012a Front";
+		ti,mcasp-controller = <&mcasp0>;
+		ti,audio-codec = <&audio_codec_f>;
+		ti,codec-clock-rate = <24576000>;
+		/* ti,codec-clock-rate = <24000000>; */
+		status = "okay";
+	};
+
+
+	audio_codec_r: pcm5102a@1 {
+		#sound-dai-cells = <0>;
+		compatible = "ti,pcm5102a";
+		status = "okay";
+	};
+
+	sound@1 {
+		compatible = "ti,nul-bbb-pcm5102a-r";
+		ti,model = "TI PCM5012a Rear";
+		ti,mcasp-controller = <&mcasp0>;
+		ti,audio-codec = <&audio_codec_r>;
+		ti,codec-clock-rate = <24576000>;
+		status = "okay";
 	};
 
 };
