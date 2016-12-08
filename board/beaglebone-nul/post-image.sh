@@ -2,6 +2,8 @@
 
 board_home=$(dirname "$0")
 
+ln -svnf am335x-boneblack-nul.dtb "${BINARIES_DIR}/am335x-boneblack.dtb"
+
 # copy the uEnv.txt to the output/images directory
 cp "${board_home}/uEnv.txt" "${BINARIES_DIR}/uEnv.txt"
 
