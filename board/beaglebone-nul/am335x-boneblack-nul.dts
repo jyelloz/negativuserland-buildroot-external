@@ -83,7 +83,6 @@
 };
 
 &mcasp0 {
-	#sound-dai-cells = <0>;
 	status = "okay";
 	pinctrl-names = "default", "sleep";
 	pinctrl-0 = <&mcasp0_4ch_pins_default>;
@@ -97,35 +96,23 @@
 
 / {
 
-	audio_codec_f: pcm5102a@0 {
-		#sound-dai-cells = <0>;
+	audio_codec_left: pcm5102a@0 {
 		compatible = "ti,pcm5102a";
 		status = "okay";
 	};
 
-	sound@0 {
-		compatible = "ti,nul-bbb-pcm5102a-f";
-		ti,model = "TI PCM5012a Front";
-		ti,mcasp-controller = <&mcasp0>;
-		ti,audio-codec = <&audio_codec_f>;
-		ti,codec-clock-rate = <24576000>;
-		/* ti,codec-clock-rate = <24000000>; */
-		status = "okay";
-	};
-
-
-	audio_codec_r: pcm5102a@1 {
-		#sound-dai-cells = <0>;
+	audio_codec_right: pcm5102a@1 {
 		compatible = "ti,pcm5102a";
 		status = "okay";
 	};
 
-	sound@1 {
-		compatible = "ti,nul-bbb-pcm5102a-r";
-		ti,model = "TI PCM5012a Rear";
+	sound {
+		compatible = "ti,nul-bbb-pcm5102a-dual";
+		ti,model = "TI BBB McASP0";
 		ti,mcasp-controller = <&mcasp0>;
-		ti,audio-codec = <&audio_codec_r>;
+		ti,audio-codec = <&audio_codec_left>, <&audio_codec_right>;
 		ti,codec-clock-rate = <24576000>;
+		nulbbb,codec-name = "pcm5102a-hifi", "pcm5102a-hifi";
 		status = "okay";
 	};
 
