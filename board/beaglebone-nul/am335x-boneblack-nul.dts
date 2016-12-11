@@ -107,11 +107,11 @@
 	};
 
 	sound {
-		compatible = "ti,nul-bbb-pcm5102a-dual";
-		ti,model = "TI BBB McASP0";
-		ti,mcasp-controller = <&mcasp0>;
-		ti,audio-codec = <&audio_codec_left>, <&audio_codec_right>;
-		ti,codec-clock-rate = <24576000>;
+		compatible = "nulbbb,mcasp-pcm5102a-dual";
+		nulbbb,model = "TI BBB McASP0";
+		nulbbb,mcasp-controller = <&mcasp0>;
+		nulbbb,audio-codec = <&audio_codec_left>, <&audio_codec_right>;
+		nulbbb,codec-clock-rate = <24576000>;
 		nulbbb,codec-name = "pcm5102a-hifi", "pcm5102a-hifi";
 		status = "okay";
 	};
