@@ -207,4 +207,105 @@
 
 /* }}} */
 
+/* {{{ SPI LCD Touchscreen */
+
+#if 0
+
+/* #define SPI0 */
+&am33xx_pinmux {
+
+#ifdef SPI0
+	spi0_display_pins_default: spi0_display_pins_default {
+		pinctrl-single,pins = <
+			AM33XX_IOPAD(0x950, PIN_OUTPUT_PULLDOWN | MUX_MODE0 ) /* (A17) spi0_sclk.spi0_sclk */
+			AM33XX_IOPAD(0x954, PIN_INPUT_PULLUP | MUX_MODE0 ) /* (B17) spi0_d0.spi0_d0 */
+			AM33XX_IOPAD(0x958, PIN_OUTPUT_PULLDOWN | MUX_MODE0 ) /* (B16) spi0_d1.spi0_d1 */
+			AM33XX_IOPAD(0x95c, PIN_OUTPUT_PULLUP | MUX_MODE0 ) /* (A16) spi0_cs0.spi0_cs0 */
+#if 0
+			AM33XX_IOPAD(0x960, PIN_OUTPUT_PULLUP | MUX_MODE0 ) /* (C15) spi0_cs1.spi0_cs1 */
+#endif
+		>;
+	};
+#endif
+#ifdef SPI1
+	spi1_display_pins_default: spi1_display_pins_default {
+		pinctrl-single,pins = <
+			AM33XX_IOPAD(0x990, PIN_OUTPUT_PULLUP | MUX_MODE3 ) /* (A13) mcasp0_aclkx.spi1_sclk */
+			AM33XX_IOPAD(0x994, PIN_INPUT_PULLUP | MUX_MODE3 ) /* (B13) mcasp0_fsx.spi1_d0 */
+			AM33XX_IOPAD(0x998, PIN_OUTPUT_PULLUP | MUX_MODE3 ) /* (D12) mcasp0_axr0.spi1_d1 */
+			AM33XX_IOPAD(0x99c, PIN_OUTPUT_PULLUP | MUX_MODE3 ) /* (C12) mcasp0_ahclkr.spi1_cs0 */
+		>;
+	};
+#endif
+	xpt2046_irq_pins_default: xpt2046_irq_pins_default {
+		pinctrl-single,pins = <
+			AM33XX_IOPAD(0x87c, PIN_INPUT | MUX_MODE7) /* (V6) gpmc_csn0.gpio1[29] */
+		>;
+	};
+};
+
+#ifdef SPI0
+&spi0 {
+
+	pinctrl-names = "default";
+	pinctrl-0 = <&spi0_display_pins_default>;
+	status = "okay";
+
+    ili9486: ili9486@0 {
+        compatible = "ilitek,ili9486";
+        spi-max-frequency = <32000000>;
+        reg = <0>;
+        buswidth = <9>;
+        debug = <3>;
+        status = "okay";
+    };
+
+    xpt2046: xpt2046@1 {
+        compatible = "ti,ads7846";
+        spi-max-frequency = <1000000>;
+        reg = <1>;
+        interrupt-parent = <&gpio1>;
+        interrupts = <29 0>;
+        pendown-gpio = <&gpio1 29 0>;
+        vcc-supply = <&ldo4_reg>;
+        status = "okay";
+    };
+
+};
+#endif
+
+#ifdef SPI1
+&spi1 {
+
+	pinctrl-names = "default";
+	pinctrl-0 = <&spi1_display_pins_default>;
+	status = "okay";
+
+	ili9486: ili9486@0 {
+		compatible = "ilitek,ili9486";
+		spi-max-frequency = <32000000>;
+		reg = <0>;
+		buswidth = <9>;
+		debug = <3>;
+		status = "okay";
+	};
+
+	xpt2046: xpt2046@1 {
+		compatible = "ti,ads7846";
+		spi-max-frequency = <1000000>;
+		reg = <1>;
+		interrupt-parent = <&gpio1>;
+		interrupts = <29 0>;
+		pendown-gpio = <&gpio1 29 0>;
+		vcc-supply = <&ldo4_reg>;
+		status = "okay";
+	};
+
+};
+#endif
+
+#endif
+
+/* }}} */
+
 /* vim: foldmethod=marker */
