@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-GPSDATE_VERSION = 81690ca78e816f86e0da11bbe8cba725fa1a634d
+GPSDATE_VERSION = a6487f01061a64cdf1aadcde50cc70b3a8e15457
 GPSDATE_SITE = $(call github,jyelloz,gpsdate-sysmocom,$(GPSDATE_VERSION))
 GPSDATE_DEPENDENCIES = gpsd
 GPSDATE_LICENSE = GPLv2
