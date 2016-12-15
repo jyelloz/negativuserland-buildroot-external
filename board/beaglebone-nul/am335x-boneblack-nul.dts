@@ -175,7 +175,7 @@
 	};
 
 	sound {
-		compatible = "nulbbb,mcasp-pcm5102a-dual";
+		compatible = "nulbbb,audio";
 		nulbbb,model = "TI BBB McASP0";
 		nulbbb,mcasp-controller = <&mcasp0>;
 		nulbbb,audio-codec = <&audio_codec_left>, <&audio_codec_right>;
