@@ -33,6 +33,25 @@
 	status = "okay";
 };
 
+/* {{{ LED supression */
+/ {
+	leds {
+		led@2 {
+			linux,default-trigger = "none";
+		};
+		led@3 {
+			linux,default-trigger = "none";
+		};
+		led@4 {
+			linux,default-trigger = "none";
+		};
+		led@5 {
+			linux,default-trigger = "none";
+		};
+	};
+};
+/* }}} */
+
 /* {{{ HDMI */
 &am33xx_pinmux {
 	nxp_hdmi_bonelt_pins: nxp_hdmi_bonelt_pins {
