@@ -1,0 +1,25 @@
+From cd369f7aca2300efcae3c5e241d42c93575d9a06 Mon Sep 17 00:00:00 2001
+From: Jordan Yelloz <jordan@yelloz.me>
+Date: Sun, 27 Nov 2016 08:37:11 -0800
+Subject: [PATCH 1/2] SConstruct: allowed to supply RANLIB from env
+
+---
+ SConstruct | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/SConstruct b/SConstruct
+index fe444a293145..1a564f8a471d 100644
+--- a/SConstruct
++++ b/SConstruct
+@@ -253,7 +253,7 @@ env['PYTHON'] = sys.executable
+ # settings.
+ env['STRIP'] = "strip"
+ env['PKG_CONFIG'] = "pkg-config"
+-for i in ["AR", "ARFLAGS", "CCFLAGS", "CFLAGS", "CC", "CXX", "CXXFLAGS", "LINKFLAGS", "STRIP", "PKG_CONFIG", "LD", "TAR"]:
++for i in ["AR", "ARFLAGS", "CCFLAGS", "CFLAGS", "CC", "CXX", "CXXFLAGS", "LINKFLAGS", "STRIP", "PKG_CONFIG", "LD", "TAR", "RANLIB"]:
+     if os.environ.has_key(i):
+         j = i
+         if i == "LD":
+-- 
+2.11.0
+

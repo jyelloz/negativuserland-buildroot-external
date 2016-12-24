@@ -1,0 +1,30 @@
+From 85a807dd6492e1b9addfa7577fd291dd5cd0f450 Mon Sep 17 00:00:00 2001
+From: Jordan Yelloz <jordan@yelloz.me>
+Date: Wed, 14 Dec 2016 11:25:34 -0800
+Subject: [PATCH 2/2] SConstruct: removed systemctl daemon-reload
+
+This makes no sense for a build/install process.
+---
+ SConstruct | 5 -----
+ 1 file changed, 5 deletions(-)
+
+diff --git a/SConstruct b/SConstruct
+index 1a564f8a471d..20cab1fb2d12 100644
+--- a/SConstruct
++++ b/SConstruct
+@@ -1870,12 +1870,7 @@ udev_install = Utility('udev-install', 'install', [
+     ] + hotplug_wrapper_install)
+ 
+ if env['systemd']:
+-    systemctl_daemon_reload = Utility('systemctl-daemon-reload', '', [ 'systemctl daemon-reload || true'])
+-    env.AlwaysBuild(systemctl_daemon_reload)
+-    env.Precious(systemctl_daemon_reload)
+     env.Requires(udev_install, systemd_install)
+-    env.Requires(systemctl_daemon_reload, systemd_install)
+-    env.Requires(udev_install, systemctl_daemon_reload)
+ 
+ 
+ Utility('udev-uninstall', '', [
+-- 
+2.11.0
+
